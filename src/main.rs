@@ -19,6 +19,30 @@ fn main() {
     let mut full_text = String::from("");
     if(!time_tracking_active) {
         full_text.push_str("No time tracking active");
+    } else {
+        let mut output_lines = output.lines();
+        let output_tags: Vec<&str> = output_lines
+            .nth(0)
+            .unwrap_or_default()
+            .split_whitespace()
+            .skip(1)
+            .collect();
+
+        let time_tracking_info = output_lines
+            .last()
+            .unwrap_or_default()
+            .split_whitespace()
+            .last()
+            .unwrap_or_default();
+
+        full_text = output_tags.join(" ");
+
+        full_text.push_str(" ");
+
+        full_text.push_str("[");
+        full_text.push_str(time_tracking_info);
+        full_text.push_str("]");
+
     }
 
     let result = json!({
