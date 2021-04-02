@@ -1,0 +1,6 @@
+[timewarrior-status]
+short_text=test
+full_text=test full
+command=timewarrior-i3blocks
+interval=5
+format=json
