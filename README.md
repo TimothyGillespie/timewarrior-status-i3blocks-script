@@ -19,6 +19,9 @@ When no time tracking is active:
 
 
 # Setup
+Since I use [regolith](https://regolith-linux.org/) I am not sure about the the exact set up for pure i3blocks -
+specifically the i3blocks folder and how to refresh the view.
+
 1. Build the `src/main.rs` using `rustc`. Put the binary into the a path variable path (i.e. `/usr/local/bin`).
 2. Put the `03_timewarrior-status` file into your i3blocks folder.
-3. Refresh the view
+3. Refresh the view (posslibly try [mod] + [shift] + r)
