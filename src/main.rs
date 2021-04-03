@@ -7,10 +7,9 @@ fn main() {
         .output()
         .unwrap();
 
-    let timewarrior_console_output = match std::str::from_utf8(timewarrior_console_option.stdout.as_slice()) {
-        Ok(v) => v.to_string(),
-        Err(e) => panic!("Invalid UTF-8 sequence: {}", e),
-    };
+    let timewarrior_console_output = std::str::from_utf8(timewarrior_console_option.stdout.as_slice())
+        .expect("Invalid UTF-8 sequence")
+        .to_string();
 
     // There might be a better solution to ckeck this
     let time_tracking_active = !timewarrior_console_output.contains("no active time tracking");
