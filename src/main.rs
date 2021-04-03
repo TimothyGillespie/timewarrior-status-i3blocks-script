@@ -3,24 +3,26 @@ use std::process::Command;
 
 fn main() {
 
-    let timewarrior_result = Command::new("timew")
+    let timewarrior_console_option = Command::new("timew")
         .output()
         .unwrap();
 
-    let timewarrior_output = match std::str::from_utf8(timewarrior_result.stdout.as_slice()) {
-        Ok(v) => v,
+    let timewarrior_console_output = match std::str::from_utf8(timewarrior_console_option.stdout.as_slice()) {
+        Ok(v) => v.to_string(),
         Err(e) => panic!("Invalid UTF-8 sequence: {}", e),
     };
 
-    let output = timewarrior_output.to_string();
-    let time_tracking_active = !output.contains("no active time tracking");
+    // There might be a better solution to ckeck this
+    let time_tracking_active = !timewarrior_console_output.contains("no active time tracking");
 
 
     let mut full_text = String::from("");
-    if(!time_tracking_active) {
+    if !time_tracking_active {
+
         full_text.push_str("No time tracking active");
+
     } else {
-        let mut output_lines = output.lines();
+        let mut output_lines = timewarrior_console_output.lines();
         let output_tags: Vec<&str> = output_lines
             .nth(0)
             .unwrap_or_default()
